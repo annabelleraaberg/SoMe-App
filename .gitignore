@@ -1,14 +1,30 @@
+# Ignore node_modules folder
 node_modules/
-.expo/
-dist/
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
 
-# macOS
+# Ignore build and dist folders
+build/
+dist/
+
+# Ignore ios and android folders
+ios/
+android/
+
+# Ignore expo files
+.expo/
+
+# Ignore log files
+*.log
+
+# Ignore Firebase environment file (firebaseEnv.js)
+firebaseEnv.js
+
+# Ignore .env files
+.env*
+  
+# Ignore IDE and VSCode folders
+.idea/
+.vscode/
+.history/
+
+# Ignore macOS system files
 .DS_Store
