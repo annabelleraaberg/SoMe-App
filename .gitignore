@@ -17,6 +17,8 @@ android/
 
 # Ignore Firebase environment file (firebaseEnv.js)
 firebaseEnv.js
+GoogleService-Info.plist
+
 
 # Ignore .env files
 .env*
@@ -25,6 +27,7 @@ firebaseEnv.js
 .idea/
 .vscode/
 .history/
+app-example/
 
 # Ignore macOS system files
 .DS_Store
