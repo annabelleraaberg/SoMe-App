@@ -1,6 +1,5 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Welcome to SoMe app 👋
+A social media app built with Expo and Firebase, allowing users to create, view and interact with posts as well as exploring gallery locations on a map.
 
 ## Get started
 
@@ -9,42 +8,45 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    ```bash
    npm install
    ```
-
-2. Start the app
+2. Prebuild
 
    ```bash
-    npx expo start
+   npm expo prebuild --platform ios --clean
    ```
 
-In the output, you'll find options to open the app in a
+3. Start the app
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   ```bash
+    npm run ios
+   ```
+**Note**: The app does not run in Expo Go since it uses Google sign-in.
+   *XCode is required to run the app with iOS simulator*
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Functionalities in the app:
+### Authentication
+* Create an account by either signing up with Firebase email and password or with a Google sign-in.
+* Option to continue as a guest (this only allows viewing access). 
 
-## Get a fresh project
+### Navigation
+* **Home (Gallery overview)**
+   * View a grid of user posts, each showing an image, title, abstract, creator, and like/dislike buttons.
+   * Tap a post to view details, comments, and location on a map.
+   * Upload posts (authenticated users only), including image, title, abstract, hashtag, and cateogry.
+   * View your own posts, with a delete button to remove them. 
 
-When you're ready, run:
+* **Search page**
+   * Search posts based on username or title.
+   * Sort posts alphabetically or filter by category. 
 
-```bash
-npm run reset-project
-```
+* **Exhibition Location page**
+   * View a map with markers indicating post locations.
+   * Tap on a marker for a little frame to show up with the image, title and abstract of that post.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+* **Profile page**
+   * View you profile with username and a grid of personal posts.
+   * Log out
 
-## Learn more
+## Known limitations
+* App tested on iOS and web.
+* Does not work with Expo Go due to Google sign-in.
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
