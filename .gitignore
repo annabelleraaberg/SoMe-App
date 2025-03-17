@@ -22,6 +22,8 @@ GoogleService-Info.plist
 
 # Ignore .env files
 .env*
+expo-env.d.ts
+nativewind-env.d.ts
   
 # Ignore IDE and VSCode folders
 .idea/
