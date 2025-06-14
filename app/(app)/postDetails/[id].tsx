@@ -27,6 +27,7 @@ import MapComponent from "@/components/MapComponent";
 import { usePostContext } from "@/providers/PostContext";
 import { formatPostDate } from "@/utils/formatDate";
 import AuthorModal from "@/components/AuthorModal";
+import ConfirmationModal from "@/components/ConfirmationModal";
 
 export default function postDetails() {
   const { id } = useLocalSearchParams();
@@ -48,6 +49,9 @@ export default function postDetails() {
 
   const { userNameSession, user } = useSession();
   const { deletePost } = usePostContext();
+
+  const [isConfirmationModalVisible, setIsConfirmationModalVisible] =
+    useState(false);
 
   const router = useRouter();
 
@@ -151,7 +155,8 @@ export default function postDetails() {
                   accessibilityHint="Deletes the current post"
                   onPress={() => {
                     console.log("delete post button pressed");
-                    handleDeletePost();
+                    //handleDeletePost();
+                    setIsConfirmationModalVisible(true);
                   }}
                 >
                   <Text>Delete post</Text>
@@ -308,7 +313,15 @@ export default function postDetails() {
         isLoading={isLoadingAuthorData}
       />
 
-      {/* Delete message */}
+      {/* Delete post */}
+      <ConfirmationModal
+        visible={isConfirmationModalVisible}
+        onClose={() => setIsConfirmationModalVisible(false)}
+        onConfirm={handleDeletePost}
+        message="Are you sure you want to delete this post?"
+      />
+
+      {/* Success delete message */}
       <Modal visible={deleteSuccess} transparent={true} animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalContent}>
