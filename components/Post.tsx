@@ -19,12 +19,14 @@ type PostProps = {
   postData: PostData;
   toggleLike: (id: string) => void;
   toggleDislike: (id: string) => void;
+  onPressPost?: (postId: string) => void;
 };
 
 export default function Post({
   postData,
   toggleLike,
   toggleDislike,
+  onPressPost,
 }: PostProps) {
   const { user } = useSession();
   const isGuest = !user;
@@ -157,7 +159,7 @@ export default function Post({
         }}
         asChild
       >
-        <Pressable>{postContent}</Pressable>
+        <Pressable onPress={() => onPressPost && onPressPost(postData.id)}>{postContent}</Pressable>
       </Link>
     );
   }
