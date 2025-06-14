@@ -25,6 +25,7 @@ import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 import MapComponent from "@/components/MapComponent";
 import { usePostContext } from "@/providers/PostContext";
+import { formatPostDate } from "@/utils/formatDate";
 
 export default function postDetails() {
   const { id } = useLocalSearchParams();
@@ -82,15 +83,18 @@ export default function postDetails() {
     }
   };
 
-  // toDate and Timestamp in Firebase: https://firebase.google.com/docs/reference/js/v8/firebase.firestore.Timestamp#todate
-  const formattedDate = post?.date.toDate().toLocaleDateString();
+  const formattedDate = post?.date.toDate && formatPostDate(post.date.toDate());
 
   useEffect(() => {
     fetchPostFromBackend();
   }, []);
 
   if (!post) {
-    return <Text>Loading post...</Text>;
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Loading post...</Text>
+      </View>
+    );
   }
 
   // Added to fetch posts by authorId
@@ -171,6 +175,8 @@ export default function postDetails() {
           <Text>Category: {post?.category}</Text>
           <Text style={styles.abstractStyle}>{post?.abstract}</Text>
           <Text className="text-gray-700">{post?.hashtags}</Text>
+
+          {/* Author */}
           <View style={styles.postDataContainer}>
             <Pressable
               accessible={true}
@@ -178,12 +184,11 @@ export default function postDetails() {
               accessibilityRole="link"
               onPress={handleAuthorModalOpen}
             >
-              <Text className="text-blue-700 text-decoration-line: underline">
-                {post?.author}
-              </Text>
+              <Text style={styles.authorButton}>{post?.author}</Text>
             </Pressable>
           </View>
 
+          {/* Comments */}
           <View>
             <Text>Comments</Text>
             <View>
@@ -227,6 +232,7 @@ export default function postDetails() {
               <TextInput
                 value={commentText}
                 onChangeText={setCommentText}
+                placeholder="Write a comment..."
                 style={styles.commentInput}
                 accessibilityLabel="Enter your comment"
               />
@@ -372,6 +378,11 @@ export default function postDetails() {
 }
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
@@ -404,10 +415,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingTop: 16,
   },
+  authorButton: {
+    color: "#1D4ED8",
+    textDecorationLine: "underline",
+    fontSize: 16,
+    paddingVertical: 4,
+  },
   commentContainer: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingVertical: 10,
   },
   commentItem: {
     flexDirection: "row",
@@ -428,7 +446,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     height: 25,
-    padding: 5
+    padding: 5,
   },
   mapContainer: {
     width: "100%",
