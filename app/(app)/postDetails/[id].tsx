@@ -151,6 +151,7 @@ export default function postDetails() {
 
               return (
                 <Pressable
+                  style={styles.deletePostButton}
                   accessibilityLabel="Delete post"
                   accessibilityHint="Deletes the current post"
                   onPress={() => {
@@ -354,6 +355,15 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  deletePostButton: {
+    fontWeight: "bold",
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 5,
+    paddingHorizontal: 10,
+    backgroundColor: "#D3D3D3",
   },
   imageStyle: {
     width: "100%",
