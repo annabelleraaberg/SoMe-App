@@ -15,6 +15,7 @@ type PostContextProps = {
   posts: PostData[];
   getPostsFromBackend: () => Promise<void>;
   deletePost: (id: string) => Promise<void>;
+  updatePost: (updatePost: PostData) => void;
   isLoading: boolean;
 };
 
@@ -91,13 +92,19 @@ export function PostProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updatePost = (updatePost: PostData) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => (post.id === updatePost.id ? updatePost : post))
+    );
+  }
+
   useEffect(() => {
     getPostsFromBackend();
   }, []);
 
   return (
     <PostContext.Provider
-      value={{ posts, getPostsFromBackend, deletePost, isLoading }}
+      value={{ posts, getPostsFromBackend, deletePost, updatePost, isLoading }}
     >
       {children}
     </PostContext.Provider>
