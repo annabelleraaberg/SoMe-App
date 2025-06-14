@@ -164,6 +164,7 @@ export default function postDetails() {
       />
 
       <ScrollView>
+        {/* Post details */}
         <Image
           style={styles.imageStyle}
           source={{ uri: post?.imageURL }}
@@ -173,26 +174,24 @@ export default function postDetails() {
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
             <Text style={styles.titleStyle}>{post?.title}</Text>
-            <Text>{formattedDate}</Text>
+            <View style={styles.postDataContainer}>
+              <Pressable
+                accessible={true}
+                accessibilityLabel="Post author. Navigate to author profile."
+                accessibilityRole="link"
+                onPress={handleAuthorModalOpen}
+              >
+                <Text style={styles.authorButton}>{post?.author}</Text>
+              </Pressable>
+            </View>
           </View>
           <Text>Category: {post?.category}</Text>
           <Text style={styles.abstractStyle}>{post?.abstract}</Text>
           <Text className="text-gray-700">{post?.hashtags}</Text>
-
-          {/* Author */}
-          <View style={styles.postDataContainer}>
-            <Pressable
-              accessible={true}
-              accessibilityLabel="Post author. Navigate to author profile."
-              accessibilityRole="link"
-              onPress={handleAuthorModalOpen}
-            >
-              <Text style={styles.authorButton}>{post?.author}</Text>
-            </Pressable>
-          </View>
+          <Text style={styles.dateStyle}>{formattedDate}</Text>
 
           {/* Comments */}
-          <View>
+          <View style={styles.commentContainer}>
             <Text>Comments</Text>
             <View>
               {isLoadingComments ? (
@@ -200,7 +199,7 @@ export default function postDetails() {
               ) : (
                 postComments.map((comment) => {
                   return (
-                    <View key={comment.id} style={styles.commentContainer}>
+                    <View key={comment.id} style={styles.commentBlock}>
                       <View key={comment.id} style={styles.commentItem}>
                         <Text className="text-gray-700">
                           {comment.comment.authorName}
@@ -240,7 +239,7 @@ export default function postDetails() {
                 accessibilityLabel="Enter your comment"
               />
               <Pressable
-                style={{ position: "absolute", right: 10, top: "70%" }}
+                style={styles.addButton}
                 onPress={async () => {
                   if (post && commentText !== "") {
                     setIsLoadingAddComment(true);
@@ -261,12 +260,13 @@ export default function postDetails() {
                 {isLoadingAddComment ? (
                   <ActivityIndicator accessibilityLabel="Loading comments" />
                 ) : (
-                  <Text>Add</Text>
+                  <Text style={styles.addButtonText}>Add</Text>
                 )}
               </Pressable>
             </View>
           </View>
 
+          {/* Map and location display */}
           {post && (
             <View style={styles.mapContainer}>
               {Platform.OS === "ios" && postLocation !== "Unknown" && (
@@ -308,6 +308,7 @@ export default function postDetails() {
         isLoading={isLoadingAuthorData}
       />
 
+      {/* Delete message */}
       <Modal visible={deleteSuccess} transparent={true} animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalContent}>
@@ -372,9 +373,14 @@ const styles = StyleSheet.create({
     color: "#1D4ED8",
     textDecorationLine: "underline",
     fontSize: 16,
-    paddingVertical: 4,
+  },
+  dateStyle: {
+    paddingTop: 8,
   },
   commentContainer: {
+    paddingTop: 16,
+  },
+  commentBlock: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -394,12 +400,28 @@ const styles = StyleSheet.create({
   commentInput: {
     borderBottomWidth: 1,
     borderColor: "gray",
-    width: "100%",
+    width: "80%",
     marginTop: 2,
     borderRadius: 5,
     alignItems: "center",
-    height: 25,
+    height: 30,
     padding: 5,
+  },
+  addButton: {
+    position: "absolute",
+    right: 8,
+    top: "50%",
+    width: 54,
+    height: 44,
+    backgroundColor: "#AA0E4C",
+    color: "#FFFFFF",
+    borderRadius: 20,
+    //marginRight: 55,
+  },
+  addButtonText: {
+    color: "white",
+    textAlign: "center",
+    lineHeight: 44,
   },
   mapContainer: {
     width: "100%",
