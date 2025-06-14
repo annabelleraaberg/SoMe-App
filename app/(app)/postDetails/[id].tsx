@@ -329,6 +329,7 @@ export default function postDetails() {
               Post deleted successfully!
             </Text>
             <Pressable
+              style={styles.successCloseButton}
               onPress={() => {
                 setDeleteSuccess(false);
                 router.back();
@@ -417,22 +418,20 @@ const styles = StyleSheet.create({
     marginTop: 2,
     borderRadius: 5,
     alignItems: "center",
-    height: 30,
+    height: 40,
     padding: 5,
   },
   addButton: {
     position: "absolute",
-    right: 8,
+    right: 0,
     top: "50%",
     width: 54,
     height: 44,
-    backgroundColor: "#AA0E4C",
+    backgroundColor: "#EBBCCF",
     color: "#FFFFFF",
     borderRadius: 20,
-    //marginRight: 55,
   },
   addButtonText: {
-    color: "white",
     textAlign: "center",
     lineHeight: 44,
   },
@@ -463,5 +462,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#AA0E4C",
+  },
+  successCloseButton: {
+    paddingVertical: 10,
   },
 });

@@ -19,6 +19,7 @@ import Spacer from "@/components/Spacer";
 import Post from "@/components/Post";
 import UpsertUser from "@/components/UpsertUser";
 import { usePostContext } from "@/providers/PostContext";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function Index() {
   const [postsList, setPostsList] = useState<PostData[]>([]);
@@ -45,16 +46,17 @@ export default function Index() {
           headerRight: () =>
             userNameSession ? (
               <Pressable
-                style={{ paddingRight: 6 }}
+                style={styles.uploadButton}
                 onPress={() => setIsModalOpen(true)}
                 accessibilityLabel="Open upload post form"
               >
                 <Text>Upload</Text>
+                <Ionicons name="add" size={24} color="black" />
               </Pressable>
             ) : null,
           headerLeft: () => (
             <Pressable
-              style={{ padding: 6 }}
+              style={styles.userNameDisplay}
               onPress={() => {
                 if (!userNameSession) {
                   router.push("/authentication");
@@ -146,5 +148,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 2,
+  },
+  uploadButton: {
+    marginRight: 6,
+    fontWeight: "bold",
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 5,
+    paddingHorizontal: 10,
+    backgroundColor: "#EBBCCF",
+  },
+  userNameDisplay: {
+    padding: 6,
   },
 });
