@@ -26,9 +26,11 @@ import MapView, { Marker } from "react-native-maps";
 import MapComponent from "@/components/MapComponent";
 import { usePostContext } from "@/providers/PostContext";
 import { formatPostDate } from "@/utils/formatDate";
+import AuthorModal from "@/components/AuthorModal";
 
 export default function postDetails() {
   const { id } = useLocalSearchParams();
+  const { updatePost } = usePostContext();
   const [post, setPost] = useState<PostData | null>(null);
   const [postComments, setPostComments] = useState<CommentObject[]>([]);
   const [postLocation, setPostLocation] = useState("Loading");
@@ -64,6 +66,7 @@ export default function postDetails() {
 
     if (backendPost) {
       setPost(backendPost);
+      updatePost(backendPost);
       fetchComments(backendPost.comments);
       visibleCommentIds.current = backendPost.comments;
 
@@ -297,63 +300,13 @@ export default function postDetails() {
       </ScrollView>
 
       {/* Author modal: open to view user profile */}
-      <Modal visible={isAuthorModalOpen}>
-        <View style={styles.authorModal}>
-          <View style={styles.authorModalHeader}>
-            <Pressable onPress={() => setIsAuthorModalOpen(false)}>
-              <Text style={styles.authorModalCloseText}>Close</Text>
-            </Pressable>
-            <Text style={styles.titleStyle}>
-              Viewing profile: {post?.author}
-            </Text>
-            <View style={{ width: 50 }} />
-          </View>
-
-          {isLoadingAuthorData ? (
-            <Text>Loading author posts...</Text>
-          ) : (
-            <View style={styles.authorModalContent}>
-              {authorPosts?.length === 0 ? (
-                <Text>No posts available from this author.</Text>
-              ) : (
-                <FlatList
-                  data={authorPosts}
-                  numColumns={2}
-                  keyExtractor={(post) => post.id}
-                  renderItem={({ item }) => (
-                    <Post
-                      key={item.id}
-                      postData={item}
-                      toggleLike={() => {
-                        const updatedPost = authorPosts.map((post) =>
-                          post.id === item.id
-                            ? {
-                                ...post,
-                                isLiked: !post.isLiked,
-                              }
-                            : post
-                        );
-                        setAuthorPosts(updatedPost);
-                      }}
-                      toggleDislike={() => {
-                        const updatedPost = authorPosts.map((post) =>
-                          post.id === item.id
-                            ? {
-                                ...post,
-                                isDisliked: !post.isDisliked,
-                              }
-                            : post
-                        );
-                        setAuthorPosts(updatedPost);
-                      }}
-                    />
-                  )}
-                />
-              )}
-            </View>
-          )}
-        </View>
-      </Modal>
+      <AuthorModal
+        visible={isAuthorModalOpen}
+        onClose={() => setIsAuthorModalOpen(false)}
+        authorName={post?.author ?? "Unknown"}
+        posts={authorPosts}
+        isLoading={isLoadingAuthorData}
+      />
 
       <Modal visible={deleteSuccess} transparent={true} animationType="fade">
         <View style={styles.modalBackground}>
@@ -458,32 +411,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
     width: "100%",
     height: 150,
-  },
-  authorModal: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 76,
-    backgroundColor: "#F2F2F2",
-  },
-  authorModalContent: {
-    paddingTop: 30,
-  },
-  authorModalHeader: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    width: "100%",
-    backgroundColor: "white",
-    position: "absolute",
-    top: 0,
-    paddingTop: 60,
-    zIndex: 1,
-    paddingBottom: 6,
-    marginBottom: 10,
-  },
-  authorModalCloseText: {
-    color: "#077DFF",
-    fontSize: 16,
   },
   modalBackground: {
     flex: 1,
