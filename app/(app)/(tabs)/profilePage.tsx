@@ -168,7 +168,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   logOutButton: {
-    padding: 15,
+    height: 44,
+    width: 80,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#D3D3D3",
     borderRadius: 20,
   },
