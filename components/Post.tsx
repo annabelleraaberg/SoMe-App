@@ -200,7 +200,8 @@ const styles = StyleSheet.create({
   },
   abstractContainer: {
     padding: 2,
-    flex: 1
+    flex: 1,
+    fontSize: 16,
   },
   bottomContainer: {
     flexDirection: "row",

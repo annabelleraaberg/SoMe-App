@@ -94,7 +94,7 @@ export default function SearchPage() {
           }
           accessibilityHint="Tap to change the order of the posts"
         >
-          <Text>{isDescending ? "Å-A" : "A-Å"}</Text>
+          <Text style={styles.filterText}>{isDescending ? "Å-A" : "A-Å"}</Text>
         </Pressable>
       </View>
       <View style={styles.categoryContainer}>
@@ -130,7 +130,7 @@ export default function SearchPage() {
       <View style={styles.postsContainer}>
         {posts.length === 0 ? (
           <View style={styles.postsPlaceholder}>
-            <Text>No posts to show</Text>
+            <Text style={styles.postsPlaceholderText}>No posts to show</Text>
             {/* Icon from icons.expo: https://icons.expo.fyi/Index/EvilIcons/image */}
             <EvilIcons name="image" size={50} color="gray" />
           </View>
@@ -200,10 +200,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   filterButton: {
-    backgroundColor: "lightgray",
+    backgroundColor: "#D3D3D3",
     borderRadius: 20,
     padding: 10,
     marginLeft: 5,
+  },
+  filterText: {
+    fontSize: 16,
   },
   categoryContainer: {
     flexDirection: "row",
@@ -215,6 +218,7 @@ const styles = StyleSheet.create({
   categoryText: {
     color: "white",
     fontWeight: "bold",
+    fontSize: 16,
   },
   selectedCategoryButton: {
     padding: 5,
@@ -230,5 +234,8 @@ const styles = StyleSheet.create({
   postsPlaceholder: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  postsPlaceholderText: {
+    fontSize: 16,
   },
 });

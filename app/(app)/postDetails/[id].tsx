@@ -382,7 +382,6 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 22,
     fontWeight: "bold",
-    backgroundColor: "yellow",
   },
   headerContainer: {
     flexDirection: "row",

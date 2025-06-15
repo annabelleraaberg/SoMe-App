@@ -64,7 +64,7 @@ export default function Index() {
                 }
               }}
             >
-              <Text>
+              <Text style={styles.userNameText}>
                 {userNameSession ? (
                   userNameSession
                 ) : (
@@ -164,5 +164,8 @@ const styles = StyleSheet.create({
   },
   userNameDisplay: {
     padding: 6,
+  },
+  userNameText: {
+    fontSize: 16,
   },
 });
