@@ -23,7 +23,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function Index() {
   const [postsList, setPostsList] = useState<PostData[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPostFormOpen, setIsPostFormOpen] = useState(false);
   const [isUpsertUserModalOpen, setIsUpsertUserModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
@@ -47,10 +47,11 @@ export default function Index() {
             userNameSession ? (
               <Pressable
                 style={styles.uploadButton}
-                onPress={() => setIsModalOpen(true)}
+                onPress={() => setIsPostFormOpen(true)}
                 accessibilityLabel="Open upload post form"
               >
                 <Text>Upload</Text>
+                {/* Icon from Expo Vector Icons: https://icons.expo.fyi/Index/Ionicons/add */}
                 <Ionicons name="add" size={24} color="black" />
               </Pressable>
             ) : null,
@@ -88,13 +89,15 @@ export default function Index() {
           }}
         />
       </Modal>
-      <Modal visible={isModalOpen} animationType="slide">
+
+      {/* Open PostForm */}
+      <Modal visible={isPostFormOpen} animationType="slide">
         <PostForm
           addNewPost={async () => {
             await getPostsFromBackend();
-            setIsModalOpen(false);
+            setIsPostFormOpen(false);
           }}
-          closeModal={() => setIsModalOpen(false)}
+          closeModal={() => setIsPostFormOpen(false)}
         />
       </Modal>
 
