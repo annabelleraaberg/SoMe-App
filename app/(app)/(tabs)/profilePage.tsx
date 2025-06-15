@@ -17,6 +17,7 @@ import {
 } from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { usePostContext } from "@/providers/PostContext";
 
 export default function ProfilePage() {
   const [refreshing, setRefreshing] = useState(false);
@@ -24,6 +25,7 @@ export default function ProfilePage() {
   const [loadingLogout, setLoadingLogout] = useState(false);
 
   const { userNameSession, signOut } = useSession();
+  const { getPostsByCurrentUser } = usePostContext();
 
   // Added to display posts made by the current user
   const getPostsFromBackend = async () => {
@@ -31,7 +33,7 @@ export default function ProfilePage() {
     console.log("username session", userNameSession);
     setRefreshing(true);
     try {
-      const posts = await getPostsByAuthor(userNameSession);
+      const posts = await getPostsByCurrentUser(userNameSession);
       setUserPosts(posts);
     } catch (error) {
       console.log("Error getching posts by user: ", error);
@@ -158,10 +160,10 @@ const styles = StyleSheet.create({
   userProfile: {
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 10
+    paddingTop: 10,
   },
   buttonContainer: {
-    padding: 5
+    padding: 5,
   },
   userNameText: {
     fontSize: 24,

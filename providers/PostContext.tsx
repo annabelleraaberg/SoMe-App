@@ -14,6 +14,7 @@ import * as postApi from "@/api/postApi";
 type PostContextProps = {
   posts: PostData[];
   getPostsFromBackend: () => Promise<void>;
+  getPostsByCurrentUser: (username: string) => Promise<PostData[]>;
   deletePost: (id: string) => Promise<void>;
   updatePost: (updatePost: PostData) => void;
   isLoading: boolean;
@@ -74,6 +75,16 @@ export function PostProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const getPostsByCurrentUser = async (username: string) => {
+    try {
+      const posts = await postApi.getPostsByAuthor(username);
+      return posts;
+    } catch (error) {
+      console.log("Error fetching posts by user: ", error);
+      return [];
+    }
+  };
+
   const deletePost = async (id: string) => {
     if (!user) {
       console.log("User is not authenticated.");
@@ -96,7 +107,7 @@ export function PostProvider({ children }: { children: React.ReactNode }) {
     setPosts((prevPosts) =>
       prevPosts.map((post) => (post.id === updatePost.id ? updatePost : post))
     );
-  }
+  };
 
   useEffect(() => {
     getPostsFromBackend();
@@ -104,7 +115,14 @@ export function PostProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <PostContext.Provider
-      value={{ posts, getPostsFromBackend, deletePost, updatePost, isLoading }}
+      value={{
+        posts,
+        getPostsFromBackend,
+        getPostsByCurrentUser,
+        deletePost,
+        updatePost,
+        isLoading,
+      }}
     >
       {children}
     </PostContext.Provider>
