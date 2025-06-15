@@ -48,6 +48,7 @@ export default function Index() {
               <Pressable
                 style={styles.uploadButton}
                 onPress={() => setIsPostFormOpen(true)}
+                accessible={true}
                 accessibilityLabel="Open upload post form"
               >
                 <Text allowFontScaling={true}>Upload</Text>

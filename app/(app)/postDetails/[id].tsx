@@ -155,6 +155,7 @@ export default function postDetails() {
               return (
                 <Pressable
                   style={styles.deletePostButton}
+                  accessible={true}
                   accessibilityLabel="Delete post"
                   accessibilityHint="Deletes the current post"
                   onPress={() => {
@@ -177,6 +178,7 @@ export default function postDetails() {
         <Image
           style={styles.imageStyle}
           source={{ uri: post?.imageURL }}
+          accessible={true}
           accessibilityLabel="Post image"
           accessibilityRole="image"
         />
@@ -252,6 +254,7 @@ export default function postDetails() {
                 onChangeText={setCommentText}
                 placeholder="Write a comment..."
                 style={styles.commentInput}
+                accessible={true}
                 accessibilityLabel="Enter your comment"
               />
               <Pressable
@@ -274,7 +277,10 @@ export default function postDetails() {
                 }}
               >
                 {isLoadingAddComment ? (
-                  <ActivityIndicator accessibilityLabel="Loading comments" />
+                  <ActivityIndicator
+                    accessible={true}
+                    accessibilityLabel="Loading comments"
+                  />
                 ) : (
                   <Text allowFontScaling={true} style={styles.addButtonText}>
                     Add
@@ -347,6 +353,7 @@ export default function postDetails() {
                 setDeleteSuccess(false);
                 router.back();
               }}
+              accessible={true}
               accessibilityLabel="Close success message"
             >
               <Text allowFontScaling={true}>Close</Text>

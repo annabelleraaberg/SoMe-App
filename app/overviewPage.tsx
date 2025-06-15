@@ -67,6 +67,7 @@ export default function OverviewPage() {
         <Pressable
           style={styles.authenticationButton}
           onPress={() => router.replace("/authentication")}
+          accessible={true}
           accessibilityLabel="Log in"
           accessibilityHint="Navigates to the authentication page"
         >

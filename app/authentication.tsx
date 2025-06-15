@@ -37,6 +37,7 @@ const Authentication = () => {
               value={userName}
               onChangeText={setUserName}
               style={styles.textField}
+              accessible={true}
               placeholder="username"
               accessibilityLabel="Enter your username"
             />
@@ -48,6 +49,7 @@ const Authentication = () => {
             value={userEmail}
             onChangeText={setUserEmail}
             style={styles.textField}
+            accessible={true}
             placeholder="email"
             accessibilityLabel="Enter your email address"
           />
@@ -59,6 +61,7 @@ const Authentication = () => {
             secureTextEntry={true}
             onChangeText={setPassword}
             style={styles.textField}
+            accessible={true}
             placeholder="password"
             accessibilityLabel="Enter your password"
           />
@@ -95,6 +98,7 @@ const Authentication = () => {
                 signInAsGuest();
                 router.replace("/overviewPage");
               }}
+              accessible={true}
               accessibilityHint="Continue without signing in"
             >
               <Text style={styles.guestButton}>Continue as guest</Text>
@@ -105,6 +109,7 @@ const Authentication = () => {
             <Pressable
               style={styles.secondaryButton}
               onPress={() => setIsSignUp(false)}
+              accessible={true}
               accessibilityLabel="Cancel sign up"
               accessibilityHint="Cancel sign-up process and return to login"
             >
