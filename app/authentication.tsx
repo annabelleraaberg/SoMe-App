@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 50,
     backgroundColor: "#D3D3D3",
-    marginBottom: 6
+    marginBottom: 16,
   },
   buttonContainer: {
     width: "100%",
