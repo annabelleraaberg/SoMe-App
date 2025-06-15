@@ -50,7 +50,7 @@ export default function Index() {
                 onPress={() => setIsPostFormOpen(true)}
                 accessibilityLabel="Open upload post form"
               >
-                <Text>Upload</Text>
+                <Text allowFontScaling={true}>Upload</Text>
                 {/* Icon from Expo Vector Icons: https://icons.expo.fyi/Index/Ionicons/add */}
                 <Ionicons name="add" size={24} color="black" />
               </Pressable>
@@ -64,11 +64,13 @@ export default function Index() {
                 }
               }}
             >
-              <Text style={styles.userNameText}>
+              <Text allowFontScaling={true} style={styles.userNameText}>
                 {userNameSession ? (
                   userNameSession
                 ) : (
-                  <Text className="text-blue-700">Log in</Text>
+                  <Text allowFontScaling={true} className="text-blue-700">
+                    Log in
+                  </Text>
                 )}
               </Text>
             </Pressable>

@@ -69,12 +69,14 @@ export default function ProfilePage() {
           <View style={styles.buttonContainer}>
             {userNameSession ? (
               <Pressable style={styles.logOutButton} onPress={handleLogout}>
-                <Text>Log out</Text>
+                <Text allowFontScaling={true}>Log out</Text>
               </Pressable>
             ) : (
               <Link asChild href={{ pathname: "/authentication" }}>
                 <Pressable style={styles.logInButton}>
-                  <Text style={styles.logInButtonText}>Log in</Text>
+                  <Text allowFontScaling={true} style={styles.logInButtonText}>
+                    Log in
+                  </Text>
                 </Pressable>
               </Link>
             )}
@@ -87,6 +89,7 @@ export default function ProfilePage() {
             style={styles.postPlaceholderText}
             accessible={true}
             accessibilityLabel="You don't have any posts yet"
+            allowFontScaling={true}
           >
             No posts yet
           </Text>

@@ -94,7 +94,9 @@ export default function SearchPage() {
           }
           accessibilityHint="Tap to change the order of the posts"
         >
-          <Text style={styles.filterText}>{isDescending ? "Å-A" : "A-Å"}</Text>
+          <Text allowFontScaling={true} style={styles.filterText}>
+            {isDescending ? "Å-A" : "A-Å"}
+          </Text>
         </Pressable>
       </View>
       <View style={styles.categoryContainer}>
@@ -130,7 +132,9 @@ export default function SearchPage() {
       <View style={styles.postsContainer}>
         {posts.length === 0 ? (
           <View style={styles.postsPlaceholder}>
-            <Text style={styles.postsPlaceholderText}>No posts to show</Text>
+            <Text allowFontScaling={true} style={styles.postsPlaceholderText}>
+              No posts to show
+            </Text>
             {/* Icon from icons.expo: https://icons.expo.fyi/Index/EvilIcons/image */}
             <EvilIcons name="image" size={50} color="gray" />
           </View>

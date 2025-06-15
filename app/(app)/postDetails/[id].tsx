@@ -99,7 +99,7 @@ export default function postDetails() {
   if (!post) {
     return (
       <View style={styles.loadingContainer}>
-        <Text>Loading post...</Text>
+        <Text allowFontScaling={true}>Loading post...</Text>
       </View>
     );
   }
@@ -163,7 +163,7 @@ export default function postDetails() {
                     setIsConfirmationModalVisible(true);
                   }}
                 >
-                  <Text>Delete post</Text>
+                  <Text allowFontScaling={true}>Delete post</Text>
                 </Pressable>
               );
             }
@@ -194,7 +194,9 @@ export default function postDetails() {
                 accessibilityRole="link"
                 onPress={handleAuthorModalOpen}
               >
-                <Text style={styles.authorButton}>{post?.author}</Text>
+                <Text allowFontScaling={true} style={styles.authorButton}>
+                  {post?.author}
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -205,7 +207,7 @@ export default function postDetails() {
 
           {/* Comments */}
           <View style={styles.commentContainer}>
-            <Text>Comments</Text>
+            <Text allowFontScaling={true}>Comments</Text>
             <View>
               {isLoadingComments ? (
                 <ActivityIndicator />
@@ -236,7 +238,7 @@ export default function postDetails() {
                               );
                           }}
                         >
-                          <Text>Delete</Text>
+                          <Text allowFontScaling={true}>Delete</Text>
                         </Pressable>
                       )}
                     </View>
@@ -274,7 +276,9 @@ export default function postDetails() {
                 {isLoadingAddComment ? (
                   <ActivityIndicator accessibilityLabel="Loading comments" />
                 ) : (
-                  <Text style={styles.addButtonText}>Add</Text>
+                  <Text allowFontScaling={true} style={styles.addButtonText}>
+                    Add
+                  </Text>
                 )}
               </Pressable>
             </View>
@@ -334,7 +338,7 @@ export default function postDetails() {
       <Modal visible={deleteSuccess} transparent={true} animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalContent}>
-            <Text style={styles.successMessage}>
+            <Text allowFontScaling={true} style={styles.successMessage}>
               Post deleted successfully!
             </Text>
             <Pressable
@@ -345,7 +349,7 @@ export default function postDetails() {
               }}
               accessibilityLabel="Close success message"
             >
-              <Text>Close</Text>
+              <Text allowFontScaling={true}>Close</Text>
             </Pressable>
           </View>
         </View>
