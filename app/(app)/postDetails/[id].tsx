@@ -149,6 +149,7 @@ export default function postDetails() {
               console.log("authorId", post.authorId);
               console.log("user uid: ", user?.uid);
 
+              {/* Delete post */}
               return (
                 <Pressable
                   style={styles.deletePostButton}
@@ -214,6 +215,7 @@ export default function postDetails() {
                       </View>
                       {comment.comment.authorId === user?.uid && (
                         <Pressable
+                        style={styles.deleteCommentButton}
                           onPress={() => {
                             commentApi.deleteComment(
                               comment.id,
@@ -357,10 +359,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   deletePostButton: {
-    fontWeight: "bold",
     borderRadius: 20,
-    flexDirection: "row",
-    alignItems: "center",
     padding: 5,
     paddingHorizontal: 10,
     backgroundColor: "#D3D3D3",
@@ -413,6 +412,12 @@ const styles = StyleSheet.create({
   commentItem: {
     flexDirection: "row",
     gap: 4,
+  },
+  deleteCommentButton: {
+    padding: 5,
+    paddingHorizontal: 10,
+    backgroundColor: "#D3D3D3",
+    borderRadius: 20,
   },
   commentInputContainer: {
     paddingTop: 16,
