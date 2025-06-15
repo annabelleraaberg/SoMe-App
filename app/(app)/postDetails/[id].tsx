@@ -149,7 +149,9 @@ export default function postDetails() {
               console.log("authorId", post.authorId);
               console.log("user uid: ", user?.uid);
 
-              {/* Delete post */}
+              {
+                /* Delete post */
+              }
               return (
                 <Pressable
                   style={styles.deletePostButton}
@@ -179,8 +181,12 @@ export default function postDetails() {
           accessibilityRole="image"
         />
         <View style={styles.contentContainer}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleStyle}>{post?.title}</Text>
+          <View style={styles.headerContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleStyle}>{post?.title}</Text>
+              <Text style={styles.likesText}>{post.likes.length} likes</Text>
+            </View>
+
             <View style={styles.postDataContainer}>
               <Pressable
                 accessible={true}
@@ -215,7 +221,7 @@ export default function postDetails() {
                       </View>
                       {comment.comment.authorId === user?.uid && (
                         <Pressable
-                        style={styles.deleteCommentButton}
+                          style={styles.deleteCommentButton}
                           onPress={() => {
                             commentApi.deleteComment(
                               comment.id,
@@ -376,11 +382,20 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 22,
     fontWeight: "bold",
+    backgroundColor: "yellow",
   },
-  titleContainer: {
+  headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  likesText: {
+    fontSize: 16,
   },
   abstractStyle: {
     fontSize: 16,
