@@ -32,6 +32,7 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 export default function postDetails() {
   const { id } = useLocalSearchParams();
   const { updatePost } = usePostContext();
+  const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState<PostData | null>(null);
   const [postComments, setPostComments] = useState<CommentObject[]>([]);
   const [postLocation, setPostLocation] = useState("Loading");
@@ -175,13 +176,23 @@ export default function postDetails() {
 
       <ScrollView>
         {/* Post details */}
-        <Image
-          style={styles.imageStyle}
-          source={{ uri: post?.imageURL }}
-          accessible={true}
-          accessibilityLabel="Post image"
-          accessibilityRole="image"
-        />
+        <View>
+          {isLoading && (
+            <ActivityIndicator
+              size="large"
+              color="#AA0E4C"
+              style={StyleSheet.absoluteFill}
+            />
+          )}
+          <Image
+            style={styles.imageStyle}
+            source={{ uri: post?.imageURL }}
+            accessible={true}
+            accessibilityLabel="Post image"
+            accessibilityRole="image"
+          />
+        </View>
+
         <View style={styles.contentContainer}>
           <View style={styles.headerContainer}>
             <View style={styles.titleContainer}>
