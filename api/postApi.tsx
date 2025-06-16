@@ -61,6 +61,28 @@ export const getPostById = async (id: string) => {
   } as PostData;
 };
 
+export const getPostsByAuthor = async (
+  author: string,
+  byId: boolean = false
+) => {
+  try {
+    // Choose to query by author or authorId based on byId.
+    // Added this to use the same function for retreiving posts by author (author name) for profilePage,
+    // and by authorId for author modal in postDetails.
+    const queryField = byId ? "authorId" : "author";
+    const querySnapshot = await getDocs(
+      query(collection(db, "posts"), where(queryField, "==", author))
+    );
+    return querySnapshot.docs.map((doc) => {
+      console.log(doc.data());
+      return { ...doc.data(), id: doc.id } as PostData;
+    });
+  } catch (error) {
+    console.log("Error getting posts by author: ", error);
+    return [];
+  }
+};
+
 // Added userId and postId to check is the current userId is the author of the post.
 export const deletePost = async (userId: string, postId: string) => {
   try {
@@ -84,40 +106,7 @@ export const deletePost = async (userId: string, postId: string) => {
   }
 };
 
-export const getPostsByAuthor = async (author: string, byId: boolean = false) => {
-  try {
-    // Choose to query by author or authorId based on byId.
-    // Added this to use the same function for retreiving posts by author (author name) for profilePage,
-    // and by authorId for author modal in postDetails.
-    const queryField = byId ? "authorId" : "author";
-    const querySnapshot = await getDocs(
-      query(collection(db, "posts"), where(queryField, "==", author))
-    );
-    return querySnapshot.docs.map((doc) => {
-      console.log(doc.data());
-      return { ...doc.data(), id: doc.id } as PostData;
-    });
-  } catch (error) {
-    console.log("Error getting posts by author: ", error);
-    return [];
-  }
-};
-
-export const getPostsByCategory = async (category: string) => {
-  try {
-    const querySnapshot = await getDocs(
-      query(collection(db, "posts"), where("category", "==", category))
-    );
-    return querySnapshot.docs.map((doc) => {
-      console.log(doc.data());
-      return { ...doc.data(), id: doc.id } as PostData;
-    });
-  } catch (error) {
-    console.log("Error getting posts by cateogry: ", error);
-    return [];
-  }
-};
-
+// Like or dislike
 export const toggleLikePost = async (id: string, userId: string) => {
   const postRef = doc(db, "posts", id);
   const post = await getDoc(postRef);
@@ -162,6 +151,7 @@ export const toggleDislikePost = async (id: string, userId: string) => {
   }
 };
 
+// Search page
 export const getSortedPosts = async (isRising: boolean) => {
   try {
     const querySnapshot = await getDocs(
@@ -174,7 +164,6 @@ export const getSortedPosts = async (isRising: boolean) => {
       console.log("sorted posts: ", doc.data());
       return { ...doc.data(), id: doc.id } as PostData;
     });
-  
   } catch (error) {
     console.log("sort: Error getting sorted data: ", error);
     return [];
@@ -215,6 +204,22 @@ export const getLocalSearchedPosts = async (searchString: string) => {
     );
 };
 
+export const getPostsByCategory = async (category: string) => {
+  try {
+    const querySnapshot = await getDocs(
+      query(collection(db, "posts"), where("category", "==", category))
+    );
+    return querySnapshot.docs.map((doc) => {
+      console.log(doc.data());
+      return { ...doc.data(), id: doc.id } as PostData;
+    });
+  } catch (error) {
+    console.log("Error getting posts by cateogry: ", error);
+    return [];
+  }
+};
+
+// Pagination
 export const getPaginatedPosts = async (
   getFromDoc: QueryDocumentSnapshot<DocumentData, DocumentData> | null
 ) => {
