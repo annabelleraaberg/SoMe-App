@@ -36,8 +36,6 @@ export default function AuthorModal({
   const handlePressPost = (postId: string) => {
     console.log("Post clicked:", postId);
     setSelectedPostId(postId);
-
-    // Kaller onClose og logger det
     console.log("Calling onClose...");
     onClose();
   };
